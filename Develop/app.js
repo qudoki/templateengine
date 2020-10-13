@@ -10,10 +10,58 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+const teamOutput = [];
+const idArray = [];
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+function generateTeam() {
+    function createManager() {
+        console.log("Let's build your team!");
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "managerName",
+                message: "If you are the manager, what is your name?",
+                validate: answer => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                    return "Please enter something."
+                }
+            },
+            {
+                type: "input",
+                name: "managerId",
+                message: "If you're a manager, what's your ID?",
+                validate: answer => {
+                    const pass = answer.match(
+                        /^[1-9]\d*$/
+                        );
+                    if (pass) {
+                        return true;
+                    }
+                    return "Please enter a unique number greater than zero."
+                }
+            }
+        ]).then(answers => {
+            const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail);
+            teamOutput.push(manager);
+            idArray.push(answers.managerId)
+            makeTeam();
+        });
+    }
 
+    function makeTeam() {
+        inquirer.prompt([
+            {
+                type: "list",
+                name: "employeeChoice",
+                choices: ["Engineer", "Intern", "No more team members to add!"]
+            }
+        ])
+    }
+}
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
@@ -33,3 +81,13 @@ const render = require("./lib/htmlRenderer");
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+
+
+
+// Create the output directory if the output path doesn't exist
+function buildTeam() {
+    if (!fs.existsSync(OUTPUT_DIR)) {
+        fs.mkdirSync(OUTPUT_DIR)
+    }
+    fs.writeFileSynch(outputPath, render(teamOutput), "utf-8")
+}
