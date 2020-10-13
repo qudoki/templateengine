@@ -33,7 +33,7 @@ function generateTeam() {
             {
                 type: "input",
                 name: "managerId",
-                message: "If you're a manager, what's your ID?",
+                message: "If you're the manager, what's your ID?",
                 validate: answer => {
                     const pass = answer.match(
                         /^[1-9]\d*$/
@@ -42,6 +42,20 @@ function generateTeam() {
                         return true;
                     }
                     return "Please enter a unique number greater than zero."
+                }
+            },
+            {
+                type: "input",
+                name: "managerOfficeNum",
+                message: "What is your manager's office number?",
+                validate: answer => {
+                    const pass = answers.match(
+                        /^[1-9]\d*$/
+                    );
+                    if (pass) {
+                        return true;
+                    }
+                    return "Please enter a unique number greater than zero.";
                 }
             }
         ]).then(answers => {
@@ -59,9 +73,129 @@ function generateTeam() {
                 name: "employeeChoice",
                 choices: ["Engineer", "Intern", "No more team members to add!"]
             }
+        ]).then(userChoice => {
+            switch(userChoice.memberChoice) {
+                case "Engineer":
+                    addEngineer();
+                    break;
+                case "Intern":
+                    addIntern();
+                    break;
+                default:
+                    buildTeam();
+            }
+        })
+    }
+
+    function addEngineer() {
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "engineerName",
+                message: "What is the engineer's name?"
+            },
+            {
+                type: "input",
+                name: "engineerId",
+                message: "What is the engineer's ID?",
+                validate: answer => {
+                    const pass = answers.match(
+                        /^[1-9]\d*$/
+                    );
+                    if (pass) {
+                        if (idArray.includes(answer)) {
+                            return "This ID already exists. Please enter a unique number greater than zero."
+                        } else {
+                            return true;
+                        }
+                    }
+                    return "Please enter a positive number greater than zero."
+                }
+            },
+            {
+                type: "input",
+                name: "engineerEmail",
+                message: "What is the engineer's email?",
+                validate: answer => {
+                    const pass = answer.match(
+                        /\S+@\S+\.\S+/
+                    );
+                    if (pass) {
+                        return true;
+                    }
+                    return "Please enter a valid email address.";
+                }
+            },
+            {
+                type: "input",
+                name: "engineerGithub",
+                message: "What is the engineer's Github username?",
+                valdiate: answer => {
+                    if (answer !=="") {
+                        return true;
+                    }
+                    return "Please enter something."
+                }
+            }
         ])
     }
+
+    function addIntern() {
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "internName",
+                message: "What is the intern's name?"
+            },
+            {
+                type: "input",
+                name: "internId",
+                message: "What is the intern's ID?",
+                validate: answer => {
+                    const pass = answers.match(
+                        /^[1-9]\d*$/
+                    );
+                    if (pass) {
+                        if (idArray.includes(answer)) {
+                            return "This ID already exists. Please enter a unique number greater than zero."
+                        } else {
+                            return true;
+                        }
+                    }
+                    return "Please enter a positive number greater than zero."
+                }
+            },
+            {
+                type: "input",
+                name: "internEmail",
+                message: "What is the intern's email?",
+                validate: answer => {
+                    const pass = answer.match(
+                        /\S+@\S+\.\S+/
+                    );
+                    if (pass) {
+                        return true;
+                    }
+                    return "Please enter a valid email address.";
+                }
+            },
+            {
+                type: "input",
+                name: "internSchool",
+                message: "What is the intern's school?",
+                valdiate: answer => {
+                    if (answer !=="") {
+                        return true;
+                    }
+                    return "Please enter something."
+                }
+            }
+        ])
+    }
+    createManager();
 }
+
+generateTeam();
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
