@@ -6,7 +6,7 @@ A Node.js CLI application to generate an HTML page for a project team. It is cre
 # Table of Contents 
 - [Installation](https://github.com/qudoki/templateengine/blob/master/README.md#installation)
 - [Usage](https://github.com/qudoki/templateengine/blob/master/README.md#usage)
-- [Tests](https://github.com/qudoki/templateengine/blob/master/README.md#usage)
+- [Tests](https://github.com/qudoki/templateengine/blob/master/README.md#testing)
 - [Contributing](https://github.com/qudoki/templateengine/blob/master/README.md#contributions)
 - [Questions](https://github.com/qudoki/templateengine/blob/master/README.md#questions)
 - [License](https://github.com/qudoki/templateengine/blob/master/README.md#license)
@@ -16,10 +16,14 @@ A Node.js CLI application to generate an HTML page for a project team. It is cre
 - This will install all package dependencies.
 
 ## Usage: 
-- In order to use or test this package, please enter the following command: "node app.js" and follow the prompts.
+- In order to run this package, please enter the following command: "node app.js" and follow the prompts.
 #### Screenshot
 ![Example Showing User Inputs](Assets/CLI.png)
 ![Example Showing Generated HTML](Assets/HTML.png)
+
+## Testing: 
+- In order to test this package, please enter the following command: "npm run test" and check for completion.
+- This package has passed all tests, see video for testing runthrough.
 
 ## Contributions: 
 - In most cases, please refer to this document: [Contributor Covenant](https://www.contributor-covenant.org/) 
