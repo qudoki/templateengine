@@ -12,7 +12,7 @@ const render = require("./lib/htmlRenderer");
 
 const teamOutput = [];
 const idArray = [];
-
+//name 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 function generateTeam() {
@@ -42,6 +42,20 @@ function generateTeam() {
                         return true;
                     }
                     return "Please enter a unique number greater than zero."
+                }
+            },
+            {
+                type: "input",
+                name: "managerEmail",
+                message: "What is the manager's email?",
+                validate: answer => {
+                    const pass = answer.match(
+                        /\S+@\S+\.\S+/
+                    );
+                    if (pass) {
+                        return true;
+                    }
+                    return "Please enter a valid email address.";
                 }
             },
             {
