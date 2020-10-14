@@ -20,8 +20,8 @@ function generateTeam() {
                 type: "input",
                 name: "managerName",
                 message: "If you are the manager, what is your name?",
-                validate: answers => {
-                    if (answers !== "") {
+                validate: answer => {
+                    if (answer !== "") {
                         return true;
                     }
                     return "Please enter something."
@@ -31,8 +31,8 @@ function generateTeam() {
                 type: "input",
                 name: "managerId",
                 message: "If you're the manager, what's your ID?",
-                validate: answers => {
-                    const pass = answers.match(
+                validate: answer => {
+                    const pass = answer.match(
                         /^[1-9]\d*$/
                     );
                     if (pass) {
@@ -45,8 +45,8 @@ function generateTeam() {
                 type: "input",
                 name: "managerEmail",
                 message: "What is the manager's email?",
-                validate: answers => {
-                    const pass = answers.match(
+                validate: answer => {
+                    const pass = answer.match(
                         /\S+@\S+\.\S+/
                     );
                     if (pass) {
@@ -59,8 +59,8 @@ function generateTeam() {
                 type: "input",
                 name: "managerOfficeNum",
                 message: "What is your manager's office number (no dashes)?",
-                validate: answers => {
-                    const pass = answers.match(
+                validate: answer => {
+                    const pass = answer.match(
                         //regex
                         /^[1-9]\d*$/
                     );
@@ -200,8 +200,8 @@ function generateTeam() {
                 type: "input",
                 name: "internSchool",
                 message: "What is the intern's school?",
-                valdiate: answers => {
-                    if (answers !== "") {
+                validate: answer => {
+                    if (answer !== "") {
                         return true;
                     }
                     return "Please enter something."
