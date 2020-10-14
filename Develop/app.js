@@ -64,6 +64,7 @@ function generateTeam() {
                 message: "What is your manager's office number (no dashes)?",
                 validate: answers => {
                     const pass = answers.match(
+                        //regex
                         /^[1-9]\d*$/
                     );
                     if (pass) {
@@ -209,8 +210,12 @@ function generateTeam() {
                     return "Please enter something."
                 }
             }
-        ])
-        // makeTeamMember();
+        ]).then(answers => {
+            const intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool);
+            teamOutput.push(intern);
+            idArray.push(answers.internId)
+            makeTeamMember();
+        });
     }
     createManager();
 }
