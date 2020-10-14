@@ -6,7 +6,7 @@ A Node.js CLI application to generate an HTML page for a project team. It is cre
 # Table of Contents 
 - [Installation](https://github.com/qudoki/templateengine/blob/master/README.md#installation)
 - [Usage](https://github.com/qudoki/templateengine/blob/master/README.md#usage)
-- [Tests](https://github.com/qudoki/templateengine/blob/master/README.md#testing)
+- [Testing](https://github.com/qudoki/templateengine/blob/master/README.md#testing)
 - [Contributing](https://github.com/qudoki/templateengine/blob/master/README.md#contributions)
 - [Questions](https://github.com/qudoki/templateengine/blob/master/README.md#questions)
 - [License](https://github.com/qudoki/templateengine/blob/master/README.md#license)
