@@ -1,7 +1,7 @@
 # HTML Template Engine
 
 ### Description: 
-A Node.js CLI application to generate an HTML page for a project team. It is created using Javascript ES5 and ES6, asynchronous/await functions, the Inquirer package, Jest for testing and Node.js.
+A Node.js CLI application to generate an HTML page for a project team. It is created using Javascript ES5 and ES6, the Inquirer package, Jest for unit testing and Node.js.
 
 # Table of Contents 
 - [Installation](https://github.com/qudoki/templateengine/blob/master/README.md#installation)
