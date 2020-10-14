@@ -23,8 +23,8 @@ function generateTeam() {
                 type: "input",
                 name: "managerName",
                 message: "If you are the manager, what is your name?",
-                validate: answer => {
-                    if (answer !== "") {
+                validate: answers => {
+                    if (answers !== "") {
                         return true;
                     }
                     return "Please enter something."
@@ -34,10 +34,10 @@ function generateTeam() {
                 type: "input",
                 name: "managerId",
                 message: "If you're the manager, what's your ID?",
-                validate: answer => {
-                    const pass = answer.match(
+                validate: answers => {
+                    const pass = answers.match(
                         /^[1-9]\d*$/
-                        );
+                    );
                     if (pass) {
                         return true;
                     }
@@ -48,8 +48,8 @@ function generateTeam() {
                 type: "input",
                 name: "managerEmail",
                 message: "What is the manager's email?",
-                validate: answer => {
-                    const pass = answer.match(
+                validate: answers => {
+                    const pass = answers.match(
                         /\S+@\S+\.\S+/
                     );
                     if (pass) {
@@ -61,8 +61,8 @@ function generateTeam() {
             {
                 type: "input",
                 name: "managerOfficeNum",
-                message: "What is your manager's office number?",
-                validate: answer => {
+                message: "What is your manager's office number (no dashes)?",
+                validate: answers => {
                     const pass = answers.match(
                         /^[1-9]\d*$/
                     );
@@ -73,22 +73,22 @@ function generateTeam() {
                 }
             }
         ]).then(answers => {
-            const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail);
+            const manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerOfficeNum);
             teamOutput.push(manager);
             idArray.push(answers.managerId)
-            makeTeam();
+            makeTeamMember();
         });
     }
 
-    function makeTeam() {
+    function makeTeamMember() {
         inquirer.prompt([
             {
                 type: "list",
                 name: "employeeChoice",
                 choices: ["Engineer", "Intern", "No more team members to add!"]
             }
-        ]).then(userChoice => {
-            switch(userChoice.memberChoice) {
+        ]).then(answers => {
+            switch (answers.employeeChoice) {
                 case "Engineer":
                     addEngineer();
                     break;
@@ -113,7 +113,7 @@ function generateTeam() {
                 name: "engineerId",
                 message: "What is the engineer's ID?",
                 validate: answer => {
-                    const pass = answers.match(
+                    const pass = answer.match(
                         /^[1-9]\d*$/
                     );
                     if (pass) {
@@ -145,13 +145,18 @@ function generateTeam() {
                 name: "engineerGithub",
                 message: "What is the engineer's Github username?",
                 valdiate: answer => {
-                    if (answer !=="") {
+                    if (answer !== "") {
                         return true;
                     }
                     return "Please enter something."
                 }
             }
-        ])
+        ]).then(answers => {
+            const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);
+            teamOutput.push(engineer);
+            idArray.push(answers.engineerId)
+            makeTeamMember();
+        });
     }
 
     function addIntern() {
@@ -166,7 +171,7 @@ function generateTeam() {
                 name: "internId",
                 message: "What is the intern's ID?",
                 validate: answer => {
-                    const pass = answers.match(
+                    const pass = answer.match(
                         /^[1-9]\d*$/
                     );
                     if (pass) {
@@ -197,14 +202,15 @@ function generateTeam() {
                 type: "input",
                 name: "internSchool",
                 message: "What is the intern's school?",
-                valdiate: answer => {
-                    if (answer !=="") {
+                valdiate: answers => {
+                    if (answers !== "") {
                         return true;
                     }
                     return "Please enter something."
                 }
             }
         ])
+        // makeTeamMember();
     }
     createManager();
 }
@@ -237,5 +243,5 @@ function buildTeam() {
     if (!fs.existsSync(OUTPUT_DIR)) {
         fs.mkdirSync(OUTPUT_DIR)
     }
-    fs.writeFileSynch(outputPath, render(teamOutput), "utf-8")
+    fs.writeFileSync(outputPath, render(teamOutput), "utf-8")
 }
